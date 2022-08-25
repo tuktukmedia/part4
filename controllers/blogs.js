@@ -1,8 +1,5 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
-const morgan = require('morgan')
-
-blogsRouter.use(morgan('tiny'))
 
 blogsRouter.get('/', (request, response) => {
   Blog.find({}).then(blogs => {
