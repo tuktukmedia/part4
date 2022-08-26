@@ -5,8 +5,22 @@ POST http://localhost:3003/api/blogs
 content-type: application/json
 
 {
-    "title": "Koodarin unelmia",
-    "author": "Java Python",
+    "title": "test otsikko",
+    "author": "Pekka P",
     "url": "https://www.kooodii.com/",
-    "likes": 53
+    "likes": 1532
+}
+
+###
+DELETE http://localhost:3003/api/blogs/63089986751d9720935c2ded
+
+
+####
+
+PUT http://localhost:3003/api/blogs/6307387786f6b0cdceade106
+content-type: application/json
+
+{
+   
+    "likes": 9999
 }

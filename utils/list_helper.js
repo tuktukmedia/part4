@@ -32,7 +32,6 @@ const mostBlogs = blogs => {
     author: countBlogs[0],
     blogs: countBlogs[1]
   }
-
   return result
 }
 
