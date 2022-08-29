@@ -6,6 +6,7 @@ const Blog = require('../models/blog')
 const bcrypt = require('bcrypt')
 const User = require('../models/user')
 const helper = require('./test_helper')
+const { initial } = require('lodash')
 
 const initialBlogs = [
   {
