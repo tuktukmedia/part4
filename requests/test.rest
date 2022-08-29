@@ -24,3 +24,16 @@ content-type: application/json
    
     "likes": 9999
 }
+
+### USER API TESTING
+POST http://localhost:3003/api/users
+content-type: application/json
+
+{
+    "username": "Ei onnaa",
+    "name": "testi käyttäjä",
+    "password": "sj"
+}
+###
+
+GET http://localhost:3003/api/users
