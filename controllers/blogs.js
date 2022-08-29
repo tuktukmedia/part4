@@ -1,18 +1,20 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
-const User = require('../models/user')
+const middleware = require('../utils/middleware')
+
+const { usersInDb } = require('../tests/test_helper')
 
 blogsRouter.get('/', async (request, response) => {
   const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 })
   response.json(blogs)
 })
 
-blogsRouter.post('/', async (request, response) => {
+/// testaaa toimiiko nyt lisäys? sitten middleware käyttöön muihinkin
+blogsRouter.post('/', middleware.userExtractor, async (request, response) => {
   const body = request.body
 
-  //laitetaan ekalle käyttäjälle toistaiseksi
-  const user = await User.findOne().sort({ created_at: -1 })
-  //const user = await User.findById(body.userId)
+  //const user = await User.findById(decodedToken.id)
+  const user = request.user
 
   const newBlog = new Blog({
     title: body.title,
@@ -29,10 +31,21 @@ blogsRouter.post('/', async (request, response) => {
   response.status(201).json(savedBlog)
 })
 
-blogsRouter.delete('/:id', async (request, response) => {
-  await Blog.findByIdAndRemove(request.params.id)
-  response.status(204).end()
-})
+blogsRouter.delete(
+  '/:id',
+  middleware.userExtractor,
+  async (request, response) => {
+    const user = request.user
+    const blog = await Blog.findById(request.params.id)
+
+    if (blog.user.toString() === user.id) {
+      await Blog.findByIdAndRemove(request.params.id)
+      response.status(204).end()
+    } else {
+      return response.status(401).json({ error: 'invalid user, no access' })
+    }
+  }
+)
 
 blogsRouter.put('/:id', async (request, response) => {
   const body = request.body

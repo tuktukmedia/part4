@@ -2,17 +2,20 @@ GET http://localhost:3003/api/blogs
 
 ####
 POST http://localhost:3003/api/blogs
-content-type: application/json
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RpIiwiaWQiOiI2MzBjOGY0YzU4MGRkNDZjMWJmNTk1MjAiLCJpYXQiOjE2NjE3NzgyNDR9.dcd-qtgHs4n2tuad0RY_5FTtORBH11C2RqW0lgtPidM
 
 {
-    "title": "test otsikko",
-    "author": "Pekka P",
-    "url": "https://www.kooodii.com/",
-    "likes": 1532
+    "title": "Uudestaan",
+    "author": "kimmo kirjoittaja",
+    "url": "https://www.mielenkiintoista-a.fi/osa-2/",
+    "likes": 2
 }
 
 ###
-DELETE http://localhost:3003/api/blogs/63089986751d9720935c2ded
+DELETE http://localhost:3003/api/blogs/630c7f5448a8f71bb4029cc4
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RpIiwiaWQiOiI2MzBjOGY0YzU4MGRkNDZjMWJmNTk1MjAiLCJpYXQiOjE2NjE3NzgyNDR9.dcd-qtgHs4n2tuad0RY_5FTtORBH11C2RqW0lgtPidM
 
 
 ####
@@ -30,10 +33,19 @@ POST http://localhost:3003/api/users
 content-type: application/json
 
 {
-    "username": "Ei onnaa",
-    "name": "testi käyttäjä",
-    "password": "sj"
+    "username": "testaaja",
+    "name": "jani testaa",
+    "password": "12345"
 }
 ###
 
 GET http://localhost:3003/api/users
+
+### LOGIN
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+    "username": "testaaja",
+    "password": "12345"
+}

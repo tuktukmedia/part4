@@ -63,6 +63,10 @@ test('post saved', async () => {
 
   await api
     .post('/api/blogs')
+    .set(
+      'Authorization',
+      'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RhYWphIiwiaWQiOiI2MzBjYzIyZDY5YzNlZWNjMmVhNGI2ZDYiLCJpYXQiOjE2NjE3ODA1NjF9.SU5pPN8WXfJhrsX5mJcyV5kXTuA60HUyIL44Z_ojZek'
+    )
     .send(newBlog)
     .expect(201)
     .expect('Content-Type', /application\/json/)
@@ -70,6 +74,17 @@ test('post saved', async () => {
   blogsAfter = await api.get('/api/blogs')
 
   expect(blogsAfter.body).toHaveLength(initialBlogs.length + 1)
+})
+
+test('post saved without token', async () => {
+  const newBlog = {
+    title: 'Uusi juttu',
+    author: 'Kikka Kirjoittaja',
+    url: 'https:/www.kikanblogi.fi/uusi-juttu',
+    likes: 0
+  }
+
+  await api.post('/api/blogs').send(newBlog).expect(401)
 })
 
 test('post deleted', async () => {
